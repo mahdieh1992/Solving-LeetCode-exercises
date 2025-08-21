@@ -1,22 +1,17 @@
 class Solution(object):
     def isValid(self, s):
-        listString = ['()','[]','{}']
-        listS = list(s)
-        ls = len(listS)
-        i = 0
-        while i < ls - 1:
-            m = listS[i] + listS[i + 1]
-            if m in listString:
-                del listS[i:i + 2]
-                i = 0 
-                ls = len(listS)
-            else:
-                i += 1
-        if not listS:
-            return True
-        else:
+        listString = {'(' : ')', '{' : '}' , '[':']'}
+        s = s.strip()
+        result = []
+        for char in s:
+            result.append(char)
+            if len(result) >= 2 and result[-2] in listString and listString[result[-2]] == result[-1]:
+                result.pop()
+                result.pop()
+        if result:
             return False
-
+        return True
+      
 s = input().strip()
 sol = Solution()
 result = sol.isValid(s)
